@@ -21,7 +21,7 @@ const shoppingCart = ['bananas', 'milk'];
 // ! Function to be tested
 function addToShoppingCart(groceryItem) {
   if (groceryItem === undefined) {
-    // Do nothing if argument is empty.
+    return `You bought ${shoppingCart.join(', ')}!`;
   } else if (shoppingCart.length > 2) {
     shoppingCart.shift(); // Shift the array to the left to remove the first element if there are more than 2 items.
     shoppingCart.push(groceryItem);

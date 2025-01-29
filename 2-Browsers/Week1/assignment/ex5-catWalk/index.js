@@ -21,30 +21,44 @@ Full description at: https://github.com/HackYourFuture/Assignments/tree/main/2-B
    https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif
 -----------------------------------------------------------------------------*/
 
-const imgRef = Array.from(document.getElementsByTagName('img'))[0];
+const img = document.querySelector('img');
 const dancingCat =
   'https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif';
-const walkingCat = imgRef.src;
-let position = 0;
-imgRef.style.left = `${position}px`;
+const walkingCat = img.src;
+const startPos = -img.width;
+const centerPos = (window.innerWidth - img.width) / 2;
+const stopPos = window.innerWidth;
+let catPosition = startPos;
 
 function catWalk() {
-  if (position > window.innerWidth - imgRef.width) {
-    position = 0;
-    imgRef.style.left = `${position}px`;
-  } else if (position >= (window.innerWidth / 2) - 200 && position <= (window.innerWidth / 2) - 190) {
-    imgRef.src = dancingCat;
-    setTimeout(() => {
-      imgRef.src = walkingCat;
-      position += 10;
-      imgRef.style.left = `${position}px`;
-    }, 5000);
-  } else {
-    position += 10;
-    imgRef.style.left = `${position}px`;
-  }
+  // Cat starts walking
+  let walkInterval = setInterval(() => {
+    catPosition += 10; 
+    img.style.left = `${catPosition}px`;
+
+    if (catPosition >= centerPos) {
+      clearInterval(walkInterval);
+      img.src = dancingCat;
+
+      // Cat starts dancing
+      setTimeout(() => {
+        img.src = walkingCat;
+        
+        // Cat starts walking again
+        walkInterval = setInterval(() => {
+          catPosition += 10; 
+          img.style.left = `${catPosition}px`;
+
+          if (catPosition >= stopPos) {
+            catPosition = startPos;
+            clearInterval(walkInterval);
+            catWalk();
+          }
+        }, 50)
+      }, 5000);    
+    }
+  }, 50)
 }
 
-const timeInterval = setInterval(catWalk, 50);
 
-window.onload = timeInterval;
+window.onload = catWalk;

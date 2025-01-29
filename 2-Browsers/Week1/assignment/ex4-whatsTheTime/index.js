@@ -18,6 +18,8 @@ function addCurrentTime() {
   console.log(currentTime);
 }
 
-const timeInterval = setInterval(addCurrentTime, 1000);
+const timeInterval = () => {
+  setInterval(addCurrentTime, 1000);
+} 
 
 window.onload = timeInterval;

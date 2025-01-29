@@ -36,11 +36,11 @@ function catWalk() {
     catPosition += 10; 
     img.style.left = `${catPosition}px`;
 
+    // Cat starts dancing
     if (catPosition >= centerPos) {
       clearInterval(walkInterval);
       img.src = dancingCat;
 
-      // Cat starts dancing
       setTimeout(() => {
         img.src = walkingCat;
         

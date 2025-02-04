@@ -1,1 +1,11 @@
-/* add your styling here */
+* {
+  text-align: center;
+}
+
+.button {
+  display: block;
+}
+
+.dropdown {
+  display: block;
+}

@@ -21,18 +21,58 @@ Use async/await and try/catch to handle promises.
 Try and avoid using global variables. As much as possible, try and use function 
 parameters and return values to pass data back and forth.
 ------------------------------------------------------------------------------*/
-function fetchData(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
-function fetchAndPopulatePokemons(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchAndPopulatePokemons(data) {
+  
 }
 
 function fetchImage(/* TODO parameter(s) go here */) {
   // TODO complete this function
 }
 
-function main() {
-  // TODO complete this function
+function errorView(error) {
+  const el = document.createElement('h1');
+  el.innerText = error;
+  document.body.innerHTML = '';
+  document.body.appendChild(el);
 }
+
+function pageView() {
+  const button = document.createElement('button');
+  button.innerText = 'Get Pokemons!'
+  button.id = 'button';
+  document.body.appendChild(button);
+
+  const select = document.createElement('select');
+  select.id = 'dropdown';
+  document.body.appendChild(select);
+}
+
+function main() {
+  pageView();
+  const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
+  const button = document.querySelector('button');
+
+  button.addEventListener('click', async () => {
+    try {
+      const data = await fetchData(url);
+      // fetchAndPopulatePokemons(data);
+      console.log(data);
+    } catch (error) {
+      errorView(error);
+    }
+  })
+}
+
+window.addEventListener('load', main);

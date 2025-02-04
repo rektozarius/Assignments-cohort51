@@ -33,12 +33,31 @@ async function fetchData(url) {
   }
 }
 
-async function fetchAndPopulatePokemons(data) {
+async function fetchAndPopulatePokemons(url) {
+  const dropdown = document.getElementById('dropdown');
   
+  try {
+    const data = await fetchData(url);
+    data.results.forEach((pokemon) => {
+      const option = document.createElement('option');
+      option.text = pokemon.name;
+      option.value = pokemon.url;
+      dropdown.appendChild(option);
+    })
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
-function fetchImage(/* TODO parameter(s) go here */) {
-  // TODO complete this function
+async function fetchImage(pokeUrl) {
+  const pokeImg = document.getElementById('poke-img');
+
+  try {
+    const pokeData = await fetchData(pokeUrl);
+    pokeImg.src = pokeData.sprites.front_default;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
 function errorView(error) {
@@ -51,28 +70,39 @@ function errorView(error) {
 function pageView() {
   const button = document.createElement('button');
   button.innerText = 'Get Pokemons!'
-  button.id = 'button';
+  button.id = 'poke-button';
   document.body.appendChild(button);
 
   const select = document.createElement('select');
   select.id = 'dropdown';
   document.body.appendChild(select);
+
+  const pokeImg = document.createElement('img');
+  pokeImg.id = 'poke-img'
+  document.body.appendChild(pokeImg);
 }
 
 function main() {
   pageView();
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
-  const button = document.querySelector('button');
+  const button = document.getElementById('poke-button');
+  const dropdown = document.getElementById('dropdown');
 
   button.addEventListener('click', async () => {
-    try {
-      const data = await fetchData(url);
-      // fetchAndPopulatePokemons(data);
-      console.log(data);
+    try { 
+      await fetchAndPopulatePokemons(url);
     } catch (error) {
       errorView(error);
     }
   })
+
+  dropdown.onchange = async (option) => {
+    try {
+      await fetchImage(option.target.value);
+    } catch (error) {
+      errorView(error);
+    }
+  }
 }
 
 window.addEventListener('load', main);

@@ -42,7 +42,6 @@ function renderError(error) {
   document.body.appendChild(el);
 }
 
-// TODO refactor with async/await and try/catch
 async function main() {
   try {
     const data = await requestData('https://xkcd.now.sh/?comic=latest');

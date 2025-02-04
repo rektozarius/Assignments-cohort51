@@ -1,11 +1,33 @@
 * {
   text-align: center;
+  zoom: 150%;
 }
 
-.button {
-  display: block;
+body {
+  display: flex;
+  flex: 1 1 max-content;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.dropdown {
-  display: block;
+#poke-button {
+  border-radius: 5px;
+}
+
+#poke-button:hover {
+  background-color: rgb(185, 185, 185);
+}
+
+#dropdown {
+  background-color: rgb(185, 185, 185);
+  border-radius: 10px;
+}
+
+#dropdown:focus-visible {
+  outline: 0;
+}
+
+#poke-img {
+  max-width: 50%;
 }

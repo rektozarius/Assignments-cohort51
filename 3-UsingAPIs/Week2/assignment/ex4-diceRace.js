@@ -15,15 +15,18 @@ import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
   const dice = [1, 2, 3, 4, 5];
-  // TODO complete this function; use Promise.race() and rollDie()
-  rollDie(1); // TODO placeholder: modify as appropriate
+  const promiseArray = dice.map((x) => rollDie(x));
+  return Promise.race(promiseArray);
 }
 
 // Refactor this function to use async/await and try/catch
-function main() {
-  rollDice()
-    .then((results) => console.log('Resolved!', results))
-    .catch((error) => console.log('Rejected!', error.message));
+async function main() {
+  try {
+    const results = await rollDice();
+    console.log('Resolved!', results);
+  } catch (error) {
+    console.log('Rejected!', error.message);
+  }
 }
 
 // ! Do not change or remove the code below
@@ -31,4 +34,9 @@ if (process.env.NODE_ENV !== 'test') {
   main();
 }
 
-// TODO Replace this comment by your explanation that was asked for in the assignment description.
+/* 
+Promise.race() takes in an iterable of promises and settles asynchronously with the state of the 
+first promise that manages to settle(either reject or resolve). Even if Promise.race() settles,
+pending promises inside the iterable keep running asynchronously until they settle, therefore 
+dice keep rolling.
+*/

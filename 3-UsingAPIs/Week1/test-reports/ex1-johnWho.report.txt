@@ -10,12 +10,12 @@
     ✅ `resolve()` should be called with a one argument
     ✅ `reject()` should be called with a one argument
     ✅ should resolve when called with a string argument (1 ms)
-    ✅ should reject with an Error object when called without an argument (1 ms)
+    ✅ should reject with an Error object when called without an argument
 
 Test Suites: 1 passed, 1 total
 Tests:       9 passed, 9 total
 Snapshots:   0 total
-Time:        0.369 s, estimated 1 s
+Time:        0.621 s, estimated 1 s
 Ran all test suites matching /C:\\Users\\rektozarius\\samuel\\main\\Assignments-cohort51\\.dist\\3-UsingAPIs\\Week1\\unit-tests\\ex1-johnWho.test.js/i.
 No linting errors detected.
 No spelling errors detected.

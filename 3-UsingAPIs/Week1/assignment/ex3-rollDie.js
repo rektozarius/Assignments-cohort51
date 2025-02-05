@@ -43,7 +43,7 @@ export function rollDie() {
 }
 
 function main() {
-  const rollo = rollDie()
+  rollDie()
     .then((value) => console.log(`Success! Die settled on ${value}.`))
     .catch((error) => console.log(error.message))
 }

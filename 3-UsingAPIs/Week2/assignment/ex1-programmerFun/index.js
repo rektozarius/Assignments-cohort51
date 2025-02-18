@@ -24,7 +24,7 @@ async function requestData(url) {
     }
     return await response.json();
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 }
 
@@ -47,7 +47,7 @@ async function main() {
     const data = await requestData('https://xkcd.now.sh/?comic=latest');
     renderImage(data);
   } catch (error) {
-    renderError(error);
+    renderError(error.message);
   }
 }
 

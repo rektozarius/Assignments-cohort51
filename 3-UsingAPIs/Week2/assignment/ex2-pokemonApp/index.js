@@ -29,13 +29,14 @@ async function fetchData(url) {
     }
     return await response.json();
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 }
 
 async function fetchAndPopulatePokemons(url) {
   const dropdown = document.getElementById('dropdown');
-  
+  dropdown.innerHTML = '';
+
   try {
     const data = await fetchData(url);
     data.results.forEach((pokemon) => {
@@ -45,7 +46,7 @@ async function fetchAndPopulatePokemons(url) {
       dropdown.appendChild(option);
     })
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 }
 
@@ -55,8 +56,9 @@ async function fetchImage(pokeUrl) {
   try {
     const pokeData = await fetchData(pokeUrl);
     pokeImg.src = pokeData.sprites.front_default;
+    pokeImg.alt = pokeData.name;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 }
 
@@ -92,7 +94,7 @@ function main() {
     try { 
       await fetchAndPopulatePokemons(url);
     } catch (error) {
-      errorView(error);
+      errorView(error.message);
     }
   })
 
@@ -100,7 +102,7 @@ function main() {
     try {
       await fetchImage(option.target.value);
     } catch (error) {
-      errorView(error);
+      errorView(error.message);
     }
   }
 }
